@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/datamerger/!svn/ver/4/subfunctions
+END
+abortedExperiments.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/datamerger/!svn/ver/3/subfunctions/abortedExperiments.m
+END
+getDataBlock.m
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/datamerger/!svn/ver/3/subfunctions/getDataBlock.m
+END
+numAbortedExperiments.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/datamerger/!svn/ver/3/subfunctions/numAbortedExperiments.m
+END
+saveStimulus.m
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/datamerger/!svn/ver/4/subfunctions/saveStimulus.m
+END
+secDiffDates.m
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/datamerger/!svn/ver/3/subfunctions/secDiffDates.m
+END
+tickTimes2timeString.m
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/datamerger/!svn/ver/3/subfunctions/tickTimes2timeString.m
+END
+secDiffTimes.m
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/datamerger/!svn/ver/3/subfunctions/secDiffTimes.m
+END
+paramFile2timeString.m
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/datamerger/!svn/ver/3/subfunctions/paramFile2timeString.m
+END
+getRecordingDate.m
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/datamerger/!svn/ver/3/subfunctions/getRecordingDate.m
+END
+corrDataParam.m
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/datamerger/!svn/ver/3/subfunctions/corrDataParam.m
+END
+tickTimes2dateString.m
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/datamerger/!svn/ver/3/subfunctions/tickTimes2dateString.m
+END
