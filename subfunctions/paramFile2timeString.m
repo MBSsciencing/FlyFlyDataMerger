@@ -4,32 +4,30 @@ function [timeString, fileNameList, trial] = paramFile2timeString(directory, dat
 % 'directory', with an optional date given
 %
 
-directory
+disp(directory)
 fileList = dir(directory); %list of all files in folder "directory"
 N = length(fileList);
 
-%aquire timeString for all trials in an experiment, one experiment each
-%iteration
+% Aquire timeString for all trials in an experiment, one experiment each
+% iteration
 
-p = 0; %counter of trials
+p = 0; % Counter of trials
 
-for n = 1:N %first two files are "." and "..", ignore them
+for n = 3:N % First two files are "." and "..", ignore them
     
     ok = 0;
     fileName = fileList(n).name;
     
-    if length(fileName) > 4
-        if strcmp(fileName(end-3:end), '.mat');
-            
-            dateString = fileName(end-23:end-4); % experimentName-dd-mmm-yyyy HH_MM_SS.mat
-            %                                   -> fileName(end-23:end-4) = dd-mmm-yyyy HH_MM_SS;
-            
-            dateString = regexprep(dateString, '_', ':'); %switch to normal format
-            fileDate   = dateString(1:11); %pick out date
-            
-            if strcmp(fileDate, date)
-                ok = 1;
-            end
+    if strcmp(fileName(end-3:end), '.mat')
+        
+        dateString = fileName(end-23:end-4); % experimentName-dd-mmm-yyyy HH_MM_SS.mat
+        %                                   -> fileName(end-23:end-4) = dd-mmm-yyyy HH_MM_SS;
+        
+        dateString = regexprep(dateString, '_', ':'); %switch to normal format
+        fileDate   = dateString(1:11); %pick out date
+        
+        if strcmp(fileDate, date)
+            ok = 1;
         end
     end
     
@@ -47,12 +45,6 @@ for n = 1:N %first two files are "." and "..", ignore them
         
         for z = 1:numLayers
             % GET STIMULUS TIMES FOR EACH LAYER
-%             T.time(z,:)     = Stimulus.layers(z).Param.Time;
-%             T.pause(z,:)    = Stimulus.layers(z).Param.PauseTime;
-%             T.preStim(z,:)  = Stimulus.layers(z).Param.PreStimTime;
-%             T.postStim(z,:) = Stimulus.layers(z).Param.PostStimTime;
-            
-            % New version
             T.time(z,:)     = debugData.screenData.ifi*[Stimulus.layers(z).Param(:).Time]';
             T.pause(z,:)    = debugData.screenData.ifi*[Stimulus.layers(z).Param(:).PauseTime]';
             T.preStim(z,:)  = debugData.screenData.ifi*[Stimulus.layers(z).Param(:).PreStimTime]';
