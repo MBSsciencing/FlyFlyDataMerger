@@ -83,14 +83,14 @@ hold on
         plot_blocks(Photodiode, on_off);
     end
 end
-
-figure(2);
-x0=400;
-y0=400;
-width=1000;
-height=500;
-set(gcf,'position',[x0,y0,width,height])
-plot([new_oo(:,1) new_oo(:,1)]',[ON_THRESHOLD ON_THRESHOLD]', 'marker','.', 'markersize', 6, 'linestyle', 'none', 'color', 'r')
-hold on
-plot([new_oo(:,2) new_oo(:,2)]',[ON_THRESHOLD ON_THRESHOLD]', 'marker','.', 'markersize', 6, 'linestyle', 'none', 'color', 'k')
-hold on
+% 
+% figure(2);
+% x0=400;
+% y0=400;
+% width=1000;
+% height=500;
+% set(gcf,'position',[x0,y0,width,height])
+% plot([new_oo(:,1) new_oo(:,1)]',[ON_THRESHOLD ON_THRESHOLD]', 'marker','.', 'markersize', 6, 'linestyle', 'none', 'color', 'r')
+% hold on
+% plot([new_oo(:,2) new_oo(:,2)]',[ON_THRESHOLD ON_THRESHOLD]', 'marker','.', 'markersize', 6, 'linestyle', 'none', 'color', 'k')
+% hold on
