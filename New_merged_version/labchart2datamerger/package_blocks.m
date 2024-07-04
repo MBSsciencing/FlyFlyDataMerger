@@ -5,9 +5,13 @@ function package_blocks(on_off, RawData, Photodiode, Time, Units, SR, labStartTi
     lst = datetime(labStartTime);
     
     for b_id = 1:size(on_off,1)
-        dvarname  = sprintf('data_block%d', b_id);
+        dvarname = sprintf('data_block%d', b_id);
         ttvarname = sprintf('ticktimes_block%d', b_id);
-        uvarname  = sprintf('unit_block%d', b_id);
+        uvarname = sprintf('unit_block%d', b_id);
+        % Investigate why this is needed sometimes
+        %if b_id == 239
+        %    stophere = true;
+        %end
         s = on_off(b_id, 1);
         e = on_off(b_id, 2);
         dblock = [Photodiode(s:e)'; RawData(s:e)'];
@@ -25,8 +29,8 @@ function package_blocks(on_off, RawData, Photodiode, Time, Units, SR, labStartTi
             ublock = Units(:, s:e);
             eval([uvarname ' = ublock;']);
             w{end + 1} = uvarname;
-        end
-    end
+        end;
+    end;
 
     info = '---- Data from RL script ---';
     w{end+1} = 'info';

@@ -1,19 +1,19 @@
 function on_off = find_blocks(Photodiode, ON_THRESHOLD, UPPER_VALUE_THRESHOLD, ON_DURATION, OFF_DURATION, view)
     if ~exist('ON_THRESHOLD', 'var') || isempty(ON_THRESHOLD)
         ON_THRESHOLD = 1.5e-3;
-    end;
+    end
     if ~exist('UPPER_VALUE_THRESHOLD', 'var') || isempty(UPPER_VALUE_THRESHOLD)
         UPPER_VALUE_THRESHOLD = 9e-3;
-    end;
+    end
     if ~exist('ON_DURATION', 'var') || isempty(ON_DURATION)
          ON_DURATION = 20;
-    end;
+    end
     if ~exist('OFF_DURATION', 'var') || isempty(OFF_DURATION)
         OFF_DURATION = 20;
-    end;
+    end
     if ~exist('view', 'var') || isempty(view)
         view = true;
-    end;
+    end
     disp('Finding candidate blocks...');
     on_off = [];
     k = length(Photodiode);
@@ -25,17 +25,15 @@ function on_off = find_blocks(Photodiode, ON_THRESHOLD, UPPER_VALUE_THRESHOLD, O
                 on_off = [s+1 e; on_off];
                 if mod(size(on_off,1), 100) == 0
                     fprintf('Number of candidate blocks is %d\n', size(on_off,1));
-                end;
-            end;
+                end
+            end
             k = s;
         else
             k = -1;
-        end;
-    end;
-
+        end
+    end
     
-    
-    figure(2);clf
+figure(2);clf
 plot(Photodiode)
 hold on
 plot([on_off(:,1) on_off(:,1)]',[ON_THRESHOLD ON_THRESHOLD]', 'marker','o', 'markersize', 6, 'linestyle', 'none', 'color', 'r')
@@ -43,10 +41,6 @@ hold on
 plot([on_off(:,2) on_off(:,2)]',[ON_THRESHOLD ON_THRESHOLD]', 'marker','o', 'markersize', 6, 'linestyle', 'none', 'color', 'k')
 hold on
 
-
-    
-    
-    
     disp('Marking dodgy blocks...');
     deletes = false(1,size(on_off,1));
     deletegaps = false(1,size(on_off,1));    
@@ -59,11 +53,11 @@ hold on
         
         if lngth < ON_DURATION
            deletes(b_id) = true; 
-        end;
+        end
         if gap < OFF_DURATION
            deletegaps(b_id) = true; 
-        end;
-    end;
+        end
+    end
     
     disp('Reconstructing blocks...');
     new_oo = [];
@@ -75,22 +69,21 @@ hold on
         if deletegaps(b_id) || ~deletes(b_id)
             if s == -1
                 s = on_off(b_id,1);
-            end;
+            end
             e = on_off(b_id,2);
-        end;
+        end
         if ~deletegaps(b_id) && s~= -1
             new_oo = [new_oo; s e];
             s = -1;
-        end;
-    end;
+        end
+    end
     on_off = new_oo;
-%     save('on_off.mat','on_off')
     
     if view
         plot_blocks(Photodiode, on_off);
     end
-    
-    
+end
+
 figure(2);
 x0=400;
 y0=400;
@@ -101,5 +94,3 @@ plot([new_oo(:,1) new_oo(:,1)]',[ON_THRESHOLD ON_THRESHOLD]', 'marker','.', 'mar
 hold on
 plot([new_oo(:,2) new_oo(:,2)]',[ON_THRESHOLD ON_THRESHOLD]', 'marker','.', 'markersize', 6, 'linestyle', 'none', 'color', 'k')
 hold on
-
-end

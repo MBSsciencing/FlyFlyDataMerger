@@ -1,7 +1,0 @@
-function dataBlock = getDataBlock(fileName, blockNo, channel)
-
-load(fileName);
-
-
-dataBlock = eval(['data_block' num2str(blockNo) '(' num2str(channel) ',:)']);
-dataBlock = dataBlock(~isnan(dataBlock)); %remove NaN
