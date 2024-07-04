@@ -86,8 +86,6 @@ for n = 2:Number_Repeats
     HourStart = hour(RawTime(1));
     LengthTime = length(RawTime);
     HourEnd = hour(RawTime(LengthTime));
-    
-    
     FixedTime = RawTime;
     
     dataArraylength=length(dataArray{:, 2});  
