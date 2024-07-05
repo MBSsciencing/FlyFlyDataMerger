@@ -1,4 +1,4 @@
-function [indice error] = corrDataParam(TimeStringData, TimeStringParam, shift)
+function [indice, error] = corrDataParam(TimeStringData, TimeStringParam, shift)
 %returns the array indice.
 %indice(1) is the index of the value in TimeStringParam closest to
 %TimeStringData(1).
