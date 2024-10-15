@@ -1,4 +1,4 @@
-function fileName = saveStimulus(path, fileName, DataBlock, Units, parameterFile, trial, CustomTag)
+function fileName = saveStimulus(path, fileName, DataBlock, Units, parameterFile, trial, CustomTag, simplifyForPublication)
 %function exportFileName = saveStimulus(DataBlock, parameterFile, trial,
 %exportPathName, preName)
 %
@@ -53,18 +53,12 @@ for n = 1:length(Stimulus.layers)
        % trialData = layer.data(:,trial(k)); old version
         trialData = cell2mat(struct2cell(layer.Param(:,trial(k)))); %sarah's changes
 
-        
-        layerName = layer.name;
-        layerName = regexprep(layerName, ' ', '_'); %replace space with underscore
-        
         eval(['Layer_' num2str(n) '_Name = layerName;']);
         
-        [R C] = size(trialData);
+        [R, ~] = size(trialData);
         for r = 1:R
-            
-          %  parName = [layer.parameters{r}]; %old version
-          parName = fieldnames(layer.Param); %sarah's changes
-           parName = parName{r}; %sarah's changes
+            parName = fieldnames(layer.Param); %sarah's changes
+            parName = parName{r}; %sarah's changes
             parName = regexprep(parName, ' ', '_'); %replace space with underscore
 
             eval(sprintf('Layer_%d_Parameters.%s(%d)=trialData(%d);',n,parName,k,r));
@@ -72,13 +66,28 @@ for n = 1:length(Stimulus.layers)
     end
 end
 
-A_spacer = '-------Data and Parameters-----------';
-Z_spacer = '-------Additional Stuff -------------';
-
-clear R C parName n layer Stimulus layerName r skippedInTrial ...
+% User chooses to save everything loaded (simplifyForPublication == 0)
+% or to save only the bare neccesary files needed for publication
+if simplifyForPublication == 0
+    clear R parName n layer Stimulus r skippedInTrial ...
     trialData timeFinish exportPathName trial preName k;
-
-save(fullfile(path,fileName));
+    save(fullfile(path,fileName));
+else
+    screenData.monitorHeight = debugData.screenData.monitorHeight;
+    screenData.flyDistance = debugData.screenData.flyDistance;
+    screenData.partial = debugData.screenData.partial;
+    screenData.bgColor = debugData.screenData.bgColor;
+    screenData.beforeBgColor = debugData.screenData.beforeBgColor;
+    screenData.hz = debugData.screenData.hz;
+    screenData.ifi = debugData.screenData.ifi;
+    save(fullfile(path,fileName), "DataBlock", "Experiment_Name", "fileName", "Units",...
+        "screenData", "timeStart");
+    % Iteratively go through and make sure all layer data is in the file
+    for n = 1:length(Stimulus.layers)
+        eval(['save(fullfile(path, fileName), "Layer_' n ...
+            '_Parameters", "Layer_' n '_Name", "-append", "-nocompression")'])
+    end
+end
 
 
 
