@@ -53,7 +53,11 @@ for n = 1:length(Stimulus.layers)
        % trialData = layer.data(:,trial(k)); old version
         trialData = cell2mat(struct2cell(layer.Param(:,trial(k)))); %sarah's changes
 
-        eval(['Layer_' num2str(n) '_Name = layerName;']);
+        try
+            eval(['Layer_' num2str(n) '_Name = layerName;']);
+        catch
+            eval(['Layer_' num2str(n) '_Name = Experiment_Name;']);
+        end
         
         [R, ~] = size(trialData);
         for r = 1:R
