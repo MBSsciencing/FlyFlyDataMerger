@@ -1,6 +1,17 @@
-function dataBlock = getDataBlock(fileName, blockNo, channel) %#ok<INUSD> Used in an eval statement, so is ok 
+function [dataBlock, cellName] = getDataBlock(fileName, blockNo, channel) %#ok<INUSD> Used in an eval statement, so is ok 
 
+warning off % Turn off warnings while we check our data scheme
 eval(['load(fileName, "data_block' num2str(blockNo) '");']);
+eval(['load(fileName, "Data_Block_' num2str(blockNo) '");']);
+warning on
+
+% Test which form of data block spelling we need
+if exist(['data_block' num2str(blockNo)], 'var')
+    cellName = 'data_block';
+elseif exist(['Data_Block_' num2str(blockNo)], 'var')
+    cellName = 'Data_Block_';
+end
+
 %for sampsamp
 % if blockNo<10,
 %     
@@ -22,19 +33,19 @@ eval(['load(fileName, "data_block' num2str(blockNo) '");']);
 % end
 
 % Testing if there are sting header cells used
-cellTest = eval(['iscell(data_block' num2str(blockNo) ');']);
+cellTest = eval(['iscell(' cellName num2str(blockNo) ');']);
 
 % Shouldn't need to check for if is cell or not, but good to stay safe
 if cellTest
-    stringTest = eval(['isstring(data_block' num2str(blockNo) '{1,1});']);
+    stringTest = eval(['isstring(' cellName num2str(blockNo) '{1,1});']);
 else
-    stringTest = eval(['isstring(data_block' num2str(blockNo) '(1,1));']);
+    stringTest = eval(['isstring(' cellName num2str(blockNo) '(1,1));']);
 end
 if stringTest
     channel = channel + 1;
 end
 
-dataBlock = eval(['data_block' num2str(blockNo) '(' num2str(channel) ',:)']);
+dataBlock = eval([cellName num2str(blockNo) '(:, ' num2str(channel) ')']);
     
 % Data can come from a lot of different places, so force it into a
 % particular format first to prevent errors
