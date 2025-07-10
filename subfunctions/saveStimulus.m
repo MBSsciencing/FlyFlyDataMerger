@@ -22,7 +22,11 @@ end
 try 
     t = datetime(timeStartPrecision);
 catch
-    t = datetime(timeStart, 'Format','d-MMM-y HH_mm_ss');
+    try
+        t = datetime(timeStart, 'Format','d-MMM-y HH_mm_ss');
+    catch
+        t = datetime(timeStart, 'Format','d_MMM_y HH_mm_ss');
+    end
 end
 fileName = [datestr(t, 'yyyy-mm-dd@hh_MM_ss') '-' fileName];
 

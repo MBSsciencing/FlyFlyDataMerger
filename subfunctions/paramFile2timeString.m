@@ -28,6 +28,13 @@ for n = 3:N % First two files are "." and "..", ignore them
         
         if strcmp(fileDate, date)
             ok = 1;
+        else
+            temp = regexprep(dateString, ':', '-');
+            temp = temp(1:11);
+            if strcmp(temp, date)
+                ok = 1;
+                fileDate = temp;
+            end
         end
     end
     
