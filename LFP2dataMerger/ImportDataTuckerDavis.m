@@ -15,6 +15,7 @@ clear
 % Grab the folder location of your data to import
 data_folder = uigetdir('/home/', 'Select your folder containing Tucker Davis data');
 save_folder = uigetdir('/home/', 'Where would you like to save your .mat files to?');
+% Edit this to filter your data merging by date!
 desired_date=('*210303*');
 
 % Check if user has the files we want!
