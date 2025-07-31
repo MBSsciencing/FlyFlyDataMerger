@@ -14,7 +14,7 @@ function package_blocks(on_off, RawData, Photodiode, Time, Units, SR, labStartTi
         %end
         s = on_off(b_id, 1);
         e = on_off(b_id, 2);
-        dblock = [Photodiode(s:e)'; RawData(s:e)'];
+        dblock = ([Photodiode(s:e)'; RawData(s:e)'])';
         
        % ttblock = (s-1)/SR + magic_number;
       %  offset = (Time(s)-Time(1))/dsec;
