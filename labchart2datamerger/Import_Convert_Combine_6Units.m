@@ -113,7 +113,7 @@ for n = 2:Number_Repeats
     end
 end
 
-savename = files(1).name(1:13);
+savename = append(A(1).name(1:13),'mat');
 if U1 == 1
     save (savename, 'Date', 'Photodiode', 'RawData', 'Time');
 elseif U2 == 1
